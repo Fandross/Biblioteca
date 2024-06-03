@@ -46,6 +46,13 @@ BibliotecaApp
         - Interfaces
             - ILivroRepository.cs // Interface que é implementada na camada de infraestrutura para interagir com o banco de dados.
         - Repositório
-            - ILivroRepository.cs // Implementação da interface ILivroRepository.cs
+            - LivroRepository.cs // Implementação da interface ILivroRepository.cs
 
+==== / ====
+Exemplo de Fluxo do Projeto:
 
+Criar/Registrar um Livro (Create Livro):
+    - API Layer: O cliente faz uma requisição POST para criar um novo livro.
+    - Core Layer: O controlador (LivrosController) chama o método CriarLivroAsync do serviço (LivroService).
+    - Core Layer: O serviço (LivroService) aplica qualquer lógica de validação ou transformação necessária e então chama CriarLivroAsync do repositório (LivroRepository).
+    - Infrastructure Layer: O repositório (LivroRepository) salva o novo produto no banco de dados.
