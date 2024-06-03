@@ -23,5 +23,29 @@ Comandos usado para gerar a base do projeto:
     b) dotnet add Core/Core.csproj reference Domain/Domain.csproj
     c) dotnet add Core/Core.csproj reference Infrastructure/Infrastructure.csproj
 
+==== / ====
+Estrutura futura do projeto:
+
+BibliotecaApp
+    - API // O controlador (LivrosController) recebe uma requisição HTTP e invoca métodos do serviço (IProductService).
+        - Controllers
+            - LivrosController.cs
+        - Program.cs // Script base
+
+    - Core // Modelos e Classes do projeto
+        - Models
+            - Livro.cs
+
+    - Domain
+        - Interfaces
+            - ILivroService.cs // Interface para os serviços relacionados aos livros. Servindo como intermediário entre a camada de apresentação (API) e a camada de infraestrutura. 
+        - Services
+            - LivroService.cs // Implementação da interface ILivroService.cs
+
+    - Infrastructure
+        - Interfaces
+            - ILivroRepository.cs // Interface que é implementada na camada de infraestrutura para interagir com o banco de dados.
+        - Repositório
+            - ILivroRepository.cs // Implementação da interface ILivroRepository.cs
 
 
