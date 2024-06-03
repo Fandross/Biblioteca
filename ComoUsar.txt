@@ -1,0 +1,27 @@
+==== / ====
+Como usar o projeto:    
+    a) Abra um terminal e navegue até a pasta API usando "cd API/"
+    b) Dentro da pasta execute também no terminal o comando dotnet run
+
+
+==== / ====
+Comandos usado para gerar a base do projeto:
+
+1) Criando a solução inicial .NET: dotnet new sln -n BibliotecaApp
+2) Crie as pastas e projetos conforme a estrutura:
+    a) dotnet new webapi -n API
+    b) dotnet new classlib -n Domain
+    c) dotnet new classlib -n Core
+    d) dotnet new classlib -n Infrastructure
+3) Adicione os projetos à solução:
+    a) dotnet sln add API/API.csproj
+    b) dotnet sln add Domain/Domain.csproj
+    c) dotnet sln add Core/Core.csproj
+    d) dotnet sln add Infrastructure/Infrastructure.csproj
+4) Adicione referências entre os projetos:
+    a) dotnet add API/API.csproj reference Core/Core.csproj
+    b) dotnet add Core/Core.csproj reference Domain/Domain.csproj
+    c) dotnet add Core/Core.csproj reference Infrastructure/Infrastructure.csproj
+
+
+
