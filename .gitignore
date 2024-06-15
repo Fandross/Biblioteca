@@ -60,3 +60,4 @@ postcss.config.js
 
 # Ignore all obj directories
 **/obj/
+**/bin/
