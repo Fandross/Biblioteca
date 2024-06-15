@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/fandross/Estudos/C#/Biblioteca/Domain/Domain.csproj",
+      "projectUniqueName": "/Users/fandross/Estudos/Csharp/Biblioteca/Domain/Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "/Users/fandross/Estudos/C#/Biblioteca/Domain/Domain.csproj",
+      "projectPath": "/Users/fandross/Estudos/Csharp/Biblioteca/Domain/Domain.csproj",
       "packagesPath": "/Users/fandross/.nuget/packages/",
-      "outputPath": "/Users/fandross/Estudos/C#/Biblioteca/Domain/obj/",
+      "outputPath": "/Users/fandross/Estudos/Csharp/Biblioteca/Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/fandross/.nuget/NuGet/NuGet.Config"

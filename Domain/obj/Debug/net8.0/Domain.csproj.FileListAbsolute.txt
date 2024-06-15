@@ -9,3 +9,16 @@
 /Users/fandross/Estudos/C#/Biblioteca/Domain/obj/Debug/net8.0/refint/Domain.dll
 /Users/fandross/Estudos/C#/Biblioteca/Domain/obj/Debug/net8.0/Domain.pdb
 /Users/fandross/Estudos/C#/Biblioteca/Domain/obj/Debug/net8.0/ref/Domain.dll
+/Users/fandross/Estudos/C#/Biblioteca/Domain/obj/Debug/net8.0/Domain.sourcelink.json
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/bin/Debug/net8.0/Domain.deps.json
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/bin/Debug/net8.0/Domain.dll
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/bin/Debug/net8.0/Domain.pdb
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/obj/Debug/net8.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/obj/Debug/net8.0/Domain.AssemblyInfoInputs.cache
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/obj/Debug/net8.0/Domain.AssemblyInfo.cs
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/obj/Debug/net8.0/Domain.csproj.CoreCompileInputs.cache
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/obj/Debug/net8.0/Domain.sourcelink.json
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/obj/Debug/net8.0/Domain.dll
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/obj/Debug/net8.0/refint/Domain.dll
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/obj/Debug/net8.0/Domain.pdb
+/Users/fandross/Estudos/Csharp/Biblioteca/Domain/obj/Debug/net8.0/ref/Domain.dll
