@@ -1,0 +1,62 @@
+# Dependency directories
+node_modules/
+coverage/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE or Editor directories and files
+.vscode/
+.idea/
+*.swp
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# Tailwind CSS
+tailwind.config.js
+postcss.config.js
+
+# Build directories
+/build
+
+# Temporary files
+.tmp/
+.temp/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Jest coverage
+/coverage
+
+# Production
+/build
+
+# Ignore the react-scripts folder
+/react-scripts
+
+# Ignore all obj directories
+**/obj/
