@@ -18,3 +18,11 @@
     - quantidade	integer($int32)
     - genero	string nullable: true
    } 
+
+3) Inicialização rápida:
+  - Depois de Clonar o repositório e configurar o mysql no /API/appsettings.json, execute o arquivo Start_Windows.bat para iniciar as duas aplicações
+  - Caso no MacOS, navegue até a pasta Biblioteca: 
+    - Execute no terminal o comando para dar permissão para executar:
+      - 'chmod +x Start_MacOS.sh'
+    - Execute o programa no terminal: 
+      - './Start_MacOS.sh' 

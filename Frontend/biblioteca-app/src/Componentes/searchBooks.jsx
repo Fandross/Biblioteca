@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import LivroCard from './LivroCard';
+import Footer from './Footer';
 
 const SearchBooks = () => {
   const [query, setQuery] = useState('');
@@ -71,12 +72,13 @@ const SearchBooks = () => {
       </div>
       {loading && <p>Carregando...</p>}
       {error && <p>{error}</p>}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 min-w[60%] sm:grid-cols-2 md:grid-cols-3 flex-grow lg:grid-cols-4 gap-4 pb-5">
         {Array.isArray(results) && results.length === 0 && !loading && <p>Nenhum livro encontrado.</p>}
         {Array.isArray(results) && results.map((book) => (
           <LivroCard key={book.id} book={book} />
         ))}
       </div>
+      <Footer/>
     </div>
   );
 };
