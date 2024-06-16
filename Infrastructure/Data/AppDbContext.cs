@@ -1,3 +1,4 @@
+// Infrastructure/Data/AppDbContext.cs
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 

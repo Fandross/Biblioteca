@@ -1,3 +1,4 @@
+// API/Controllers/LivrosController.cs
 using Core.Interfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,17 @@ namespace API.Controllers
                 return NotFound();
             }
             return Ok(livro);
+        }
+
+        [HttpGet("bytitle/{title}")] // Alteração na rota para evitar conflito
+        public async Task<IActionResult> GetByTitleAsync(string title)
+        {
+            var livros = await _livroService.GetByTitleAsync(title);
+            if (livros == null || !livros.Any()) // Verifica se a lista de livros está vazia
+            {
+                return NotFound();
+            }
+            return Ok(livros);
         }
 
         [HttpPost]

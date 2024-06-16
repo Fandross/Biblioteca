@@ -13,5 +13,7 @@ namespace Infrastructure.Interfaces
         Task CreateLivroAsync(Livro livro);
         Task UpdateLivroAsync(Livro livro);
         Task DeleteLivroAsync(int id);
+        //Teste
+        Task GetByTitleAsync(string title);
     }
 }

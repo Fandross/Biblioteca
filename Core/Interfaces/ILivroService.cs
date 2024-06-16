@@ -1,17 +1,18 @@
-// Domain/Interfaces/ILivro.cs
+// Core/Interfaces/ILivroService.cs
 using Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces
+namespace Core.Interfaces
 {
-    public interface ILivro
+    public interface ILivroService
     {
         Task<IEnumerable<Livro>> GetAllAsync();
         Task<Livro> GetByIdAsync(int id);
         Task AddAsync(Livro livro);
         Task UpdateAsync(Livro livro);
         Task DeleteAsync(int id);
-        Task<IEnumerable<Livro>> GetByTitleAsync(string title);
+        //teste
+        Task<IEnumerable<Livro>>GetByTitleAsync(string title);
     }
 }

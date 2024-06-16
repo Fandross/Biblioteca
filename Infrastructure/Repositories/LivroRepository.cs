@@ -48,5 +48,12 @@ namespace Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<IEnumerable<Livro>> GetByTitleAsync(string title)
+        {
+            return await _context.Livros
+                                .Where(l => l.Titulo.Contains(title))  // Exemplo de filtro por título
+                                .ToListAsync();
+        }
+
     }
 }
