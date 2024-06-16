@@ -9,12 +9,12 @@
 
 2)
  - Segue o Esquema do banco de dados incial para a database, 'bibliotecadb':
-Livro{
- id	integer($int32)
- titulo	string nullable: true
- autor	string nullable: true
- isbn	string nullable: true
- descricao	string nullable: true
- quantidade	integer($int32)
- genero	string nullable: true
-} 
+  - Livro{
+    - id	integer($int32)
+    - titulo	string nullable: true
+    - autor	string nullable: true
+    - isbn	string nullable: true
+    - descricao	string nullable: true
+    - quantidade	integer($int32)
+    - genero	string nullable: true
+   } 
