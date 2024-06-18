@@ -33,6 +33,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Dependencias
 builder.Services.AddScoped<ILivro, LivroRepository>();
 builder.Services.AddScoped<ILivroService, LivroService>();
+builder.Services.AddScoped<EstudanteService>();
 
 var app = builder.Build();
 

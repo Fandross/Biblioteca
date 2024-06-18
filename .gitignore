@@ -33,9 +33,7 @@ Thumbs.db
 *.sublime-workspace
 *.sublime-project
 
-# Tailwind CSS
-tailwind.config.js
-postcss.config.js
+
 
 # Build directories
 /build
