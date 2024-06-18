@@ -1,3 +1,4 @@
+using Core.Interfaces;
 using Domain.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Services
 {
-    public class EstudanteService
+    public class EstudanteService : IEstudanteService
     {
         private readonly AppDbContext _context;
 
@@ -29,42 +30,42 @@ namespace Core.Services
             return estudante;
         }
 
-        public async Task<Estudante?> GetEstudanteByIdAsync(int id)
+        public async Task<Estudante> GetEstudanteByIdAsync(int id)
         {
             return await _context.Estudantes
+                                .Include(e => e.EstudanteLivros)
+                                .ThenInclude(el => el.Livro)
                                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
-       public async Task AlugarLivroAsync(int estudanteId, int livroId)
-    {
-        var estudante = await _context.Estudantes
-            .Include(e => e.EstudanteLivros)
-            .FirstOrDefaultAsync(e => e.Id == estudanteId);
 
-        var livro = await _context.Livros
-            .Include(l => l.EstudanteLivros)
-            .FirstOrDefaultAsync(l => l.Id == livroId);
-
-        if (estudante == null || livro == null)
+        public async Task AlugarLivroAsync(int estudanteId, int livroId)
         {
-            throw new Exception("Estudante ou livro não encontrado.");
-        }
+            var estudante = await _context.Estudantes.Include(e => e.EstudanteLivros)
+                                                    .FirstOrDefaultAsync(e => e.Id == estudanteId);
+            if (estudante == null)
+            {
+                throw new Exception("Estudante não encontrado.");
+            }
 
-        if (!estudante.EstudanteLivros.Any(el => el.LivroId == livroId))
-        {
-            estudante.EstudanteLivros.Add(new EstudanteLivro
+            var livro = await _context.Livros.FindAsync(livroId);
+            if (livro == null)
+            {
+                throw new Exception("Livro não encontrado.");
+            }
+
+            var estudanteLivro = new EstudanteLivro
             {
                 EstudanteId = estudanteId,
                 LivroId = livroId,
                 Estudante = estudante,
                 Livro = livro
-            });
+            };
 
-            _context.Estudantes.Update(estudante);
+            estudante.EstudanteLivros.Add(estudanteLivro);
+
             await _context.SaveChangesAsync();
         }
-    }
-
 
         
     }

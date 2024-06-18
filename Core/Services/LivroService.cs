@@ -1,7 +1,6 @@
 using Core.Interfaces;
 using Domain.Entities;
-// Core/Services/LivroService.cs
-using Domain.Interfaces;
+using Infrastructure.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

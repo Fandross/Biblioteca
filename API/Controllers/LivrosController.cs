@@ -28,12 +28,14 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var livro = await _livroService.GetByIdAsync(id);
-            if (livro == null)
-            {
-                return NotFound();
-            }
-            return Ok(livro);
+    var livro = await _livroService.GetByIdAsync(id);
+
+    if (livro == null)
+    {
+        return NotFound();
+    }
+
+    return Ok(livro);
         }
 
         [HttpGet("bytitle/{title}")] // Alteração na rota para evitar conflito

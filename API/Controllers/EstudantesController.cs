@@ -1,3 +1,4 @@
+using Core.Interfaces;
 using Core.Services;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +9,9 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class EstudantesController : ControllerBase
     {
-        private readonly EstudanteService _estudanteService;
+        private readonly IEstudanteService _estudanteService;
 
-        public EstudantesController(EstudanteService estudanteService)
+        public EstudantesController(IEstudanteService estudanteService)
         {
             _estudanteService = estudanteService;
         }
@@ -24,16 +25,16 @@ namespace API.Controllers
         
         
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Estudante>> GetEstudante(int id)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Estudante>> GetEstudante(int id)
+    {
+        var estudante = await _estudanteService.GetEstudanteByIdAsync(id);
+        if (estudante == null)
         {
-            var estudante = await _estudanteService.GetEstudanteByIdAsync(id);
-            if (estudante == null)
-            {
-                return NotFound();
-            }
-            return Ok(estudante);
+            return NotFound();
         }
+        return Ok(estudante);
+    }
 
         [HttpPost]
         public async Task<ActionResult<Estudante>> CreateEstudante(Estudante estudante)
@@ -52,7 +53,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
         

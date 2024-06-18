@@ -11,6 +11,6 @@ namespace Domain.Entities
         public string Descricao { get; set; }
         public int Quantidade { get; set; }
         public string Genero { get; set; }
-        public ICollection<EstudanteLivro> EstudanteLivros { get; set; } = new List<EstudanteLivro>();
+        public List<EstudanteLivro> EstudanteLivros { get; set; } = new List<EstudanteLivro>();
     }
 }

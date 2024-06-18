@@ -1,9 +1,8 @@
-// Domain/Interfaces/ILivro.cs
 using Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces
+namespace Core.Interfaces
 {
     public interface ILivro
     {

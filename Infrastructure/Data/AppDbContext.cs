@@ -15,41 +15,30 @@ namespace Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Estudante>(entity =>
-            {
-                entity.ToTable("Estudantes");
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Nome).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Matricula).IsRequired().HasMaxLength(50);
-            });
+            modelBuilder.Entity<Estudante>()
+                .ToTable("Estudantes")
+                .HasKey(e => e.Id);
 
-            modelBuilder.Entity<Livro>(entity =>
-            {
-                entity.ToTable("Livros");
-                entity.HasKey(l => l.Id);
-                entity.Property(l => l.Titulo).IsRequired().HasMaxLength(200);
-                entity.Property(l => l.Autor).IsRequired().HasMaxLength(100);
-                entity.Property(l => l.Isbn).HasMaxLength(20);
-                entity.Property(l => l.Descricao).HasMaxLength(500);
-                entity.Property(l => l.Genero).HasMaxLength(100);
-                entity.Property(l => l.Quantidade).IsRequired();
-            });
+            modelBuilder.Entity<Livro>()
+                .ToTable("Livros")
+                .HasKey(l => l.Id);
 
-            modelBuilder.Entity<EstudanteLivro>(entity =>
-            {
-                entity.ToTable("Estudante_Livros");
-                entity.HasKey(el => new { el.EstudanteId, el.LivroId });
+            modelBuilder.Entity<EstudanteLivro>()
+                .ToTable("estudante_livros")
+                .HasKey(el => new { el.EstudanteId, el.LivroId });
 
-                entity.HasOne(el => el.Estudante)
-                    .WithMany(e => e.EstudanteLivros)
-                    .HasForeignKey(el => el.EstudanteId);
+            modelBuilder.Entity<EstudanteLivro>()
+                .HasOne(el => el.Estudante)
+                .WithMany(e => e.EstudanteLivros)
+                .HasForeignKey(el => el.EstudanteId);
 
-                entity.HasOne(el => el.Livro)
-                    .WithMany(l => l.EstudanteLivros)
-                    .HasForeignKey(el => el.LivroId);
-            });
+            modelBuilder.Entity<EstudanteLivro>()
+                .HasOne(el => el.Livro)
+                .WithMany(l => l.EstudanteLivros)
+                .HasForeignKey(el => el.LivroId);
 
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }

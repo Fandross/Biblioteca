@@ -1,6 +1,5 @@
-// Infrastructure/Repositories/LivroRepository.cs
+using Core.Interfaces;
 using Domain.Entities;
-using Domain.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -24,18 +23,20 @@ namespace Infrastructure.Repositories
 
         public async Task<Livro> GetByIdAsync(int id)
         {
-            return await _context.Livros.FindAsync(id);
+            return await _context.Livros
+                                  .Include(l => l.EstudanteLivros)
+                                  .FirstOrDefaultAsync(l => l.Id == id);
         }
 
         public async Task AddAsync(Livro livro)
         {
-            await _context.Livros.AddAsync(livro);
+            _context.Livros.Add(livro);
             await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Livro livro)
         {
-            _context.Livros.Update(livro);
+            _context.Entry(livro).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 
@@ -48,12 +49,12 @@ namespace Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
         public async Task<IEnumerable<Livro>> GetByTitleAsync(string title)
         {
             return await _context.Livros
-                                .Where(l => l.Titulo.Contains(title))  // Exemplo de filtro por título
-                                .ToListAsync();
+                                 .Where(l => l.Titulo.Contains(title))
+                                 .ToListAsync();
         }
-
     }
 }
