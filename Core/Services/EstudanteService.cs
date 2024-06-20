@@ -2,7 +2,9 @@ using Core.Interfaces;
 using Domain.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Core.Services
@@ -21,8 +23,6 @@ namespace Core.Services
             return await _context.Estudantes.ToListAsync();
         }
 
-        
-
         public async Task<Estudante> CreateEstudanteAsync(Estudante estudante)
         {
             _context.Estudantes.Add(estudante);
@@ -37,7 +37,6 @@ namespace Core.Services
                                 .ThenInclude(el => el.Livro)
                                 .FirstOrDefaultAsync(e => e.Id == id);
         }
-
 
         public async Task AlugarLivroAsync(int estudanteId, int livroId)
         {
@@ -67,6 +66,17 @@ namespace Core.Services
             await _context.SaveChangesAsync();
         }
 
-        
+        public async Task<Estudante> AuthenticateAsync(string matricula, string senha)
+        {
+            var estudante = await _context.Estudantes.FirstOrDefaultAsync(e => e.Matricula == matricula);
+
+            // Verifica se o estudante existe e se a senha está correta
+            if (estudante == null || estudante.Senha != senha)
+            {
+                throw new Exception("Usuario nao encontrando, ou senha errada!"); // Credenciais inválidas
+            }
+
+            return estudante;
+        }
     }
 }

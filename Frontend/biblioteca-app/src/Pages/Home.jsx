@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllBooks, deleteBook } from '../Services/livroServices';
 import LivroLista from '../Componentes/LivroLista';
+import Footer from '../Componentes/Footer';
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -18,30 +19,12 @@ function Home() {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await deleteBook(id);
-      // Após excluir, atualiza a lista de livros
-      fetchBooks();
-    } catch (error) {
-      console.error('Error deleting book:', error);
-    }
-  };
-
   return (
-    <div>
+    <div className='flex flex-wrap justify-center'>
+      <h1>Livros mais buscados:</h1>
+      <div className=''>
       <LivroLista/>
-      <h1 className="text-2xl font-bold mb-4">Books List(Teste para debug)</h1>
-      <ul>
-        {books.map((book) => (
-          <li key={book.id} className="mb-2">
-            {book.titulo} - {book.autor}
-            <button onClick={() => handleDelete(book.id)} className="ml-4 text-red-500">
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+      </div>
     </div>
   );
 }

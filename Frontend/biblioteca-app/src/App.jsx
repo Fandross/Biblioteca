@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Outlet, Link } from 'react-router-dom';
 import Navbar from './Componentes/Navbar';
 import LivroLista from './Componentes/LivroLista';
+import EstudanteDados from './Componentes/EstudanteDados';
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Navbar/>
         {/* <LivroLista/> */}
         <Outlet />
+        {/* <EstudanteDados/> */}
       </div>
 
   );

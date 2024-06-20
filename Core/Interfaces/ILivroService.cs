@@ -14,5 +14,6 @@ namespace Core.Interfaces
         Task DeleteAsync(int id);
         //teste
         Task<IEnumerable<Livro>>GetByTitleAsync(string title);
+        Task RemoveDependenciesAsync(int livroId);
     }
 }

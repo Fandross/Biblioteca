@@ -8,6 +8,7 @@ namespace Infrastructure.Data
         public DbSet<Estudante> Estudantes { get; set; }
         public DbSet<Livro> Livros { get; set; }
         public DbSet<EstudanteLivro> EstudanteLivros { get; set; }
+        public DbSet<Administrador> Administrador { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -36,6 +37,10 @@ namespace Infrastructure.Data
                 .HasOne(el => el.Livro)
                 .WithMany(l => l.EstudanteLivros)
                 .HasForeignKey(el => el.LivroId);
+
+                modelBuilder.Entity<Administrador>()
+                .ToTable("Administrador")
+                .HasKey(l => l.Id);
 
             base.OnModelCreating(modelBuilder);
         }

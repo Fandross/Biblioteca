@@ -1,25 +1,64 @@
 import React from 'react';
+import axios from 'axios';
+import { jwtDecode } from "jwt-decode"; //Importacao correta
 
-const LivroCard = ({ book }) => {
-  console.log('LivroCard props:', book); // Adicione este console.log para verificar os dados recebidos
+const LivroCard = ({ book, isAdmin, onDeleteClick, onUpdateClick }) => {
+  const apiUrl = 'http://localhost:5186/api';
+  const token = localStorage.getItem('jwtToken');
+  const decodedToken = token ? jwtDecode(token) : null;
+
+  const handleAlugarClick = async () => {
+    if (!decodedToken) return;
+
+    try {
+      const response = await axios.post(`${apiUrl}/Estudantes/${decodedToken.nameid}/alugar/${book.id}`);
+      if (response.status === 200) {
+        console.log(`Livro com ID ${book.id} alugado com sucesso para o estudante com ID ${decodedToken.nameid}`);
+      } else {
+        console.warn(`Unexpected response status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Erro ao tentar alugar o livro:', error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await onDeleteClick(book.id);
+      // Se precisar de alguma lógica após a exclusão, você pode adicionar aqui
+    } catch (error) {
+      console.error('Erro ao deletar livro:', error);
+    }
+  };
+
+  const handleUpdate = () => {
+    onUpdateClick(book.id);
+  };
 
   return (
-    <div className="card max-w-sm bg-white shadow-md rounded-md p-4 m-4 border border-gray-200">
-      <div className="flex flex-col h-full justify-between">
-        <div>
-          <h3 className="text-orange-400 font-bold text-lg mb-2">{book.titulo}</h3>
-          <h4 className="text-blue-900 font-semibold text-md mb-1">Autor: {book.autor}</h4>
-          <p className="text-gray-700 text-sm mb-2">Gênero: {book.genero}</p>
-          <p className="text-gray-700 text-sm mb-2">ISBN: {book.isbn}</p>
-          <p className="text-gray-900 text-sm mb-2">Descrição: {book.descricao}</p>
-          <p className="text-gray-900 text-sm mb-2">Quantidade: {book.quantidade}</p>
-          {/* <p className="text-gray-900 text-sm mb-4">Usuários que alugaram: {book.usuariosQueAlugaram.join(', ')}</p> */}
-        </div>
-        <div className="mt-4">
-          <a href={`/update/${book.id}`} className="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
-            Atualizar
-          </a>
-        </div>
+    <div className="border p-4 rounded shadow-md">
+      <h3 className="text-lg font-bold">{book.titulo}</h3>
+      <p className="mb-2">Autor: {book.autor}</p>
+      <p className="mb-2">Descrição: {book.descricao}</p>
+      <p className="mb-2">ISBN: {book.isbn}</p>
+      <p className="mb-2">Gênero: {book.genero}</p>
+      <p className="mb-2">Quantidade: {book.quantidade}</p>
+      <div className="mt-4">
+        {!isAdmin && (
+          <button onClick={handleAlugarClick} className="bg-green-500 text-white px-4 py-2 rounded">
+            Alugar
+          </button>
+        )}
+        {isAdmin && (
+          <div>
+            <button onClick={handleUpdate} className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
+              Atualizar
+            </button>
+            <button onClick={handleDelete} className="bg-red-500 text-white px-4 py-2 rounded">
+              Deletar
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

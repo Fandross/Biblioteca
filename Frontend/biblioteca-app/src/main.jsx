@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import App from './App'
 import Home from './Pages/Home'
-import AddBook from './Componentes/addBook'
-import SearchBooks from './Componentes/searchBooks'
-import UpdateBook from './Componentes/updateBooks'
+import AddBook from './Componentes/AdicionarLivro'
+import SearchBooks from './Componentes/ProcurarLivro'
+import UpdateBook from './Componentes/AtualizarLivro'
 import './index.css'
 import LoginFormulario from './Componentes/LoginFormulario'
+import TestePage from './Pages/Teste'
+import Dashboard from './Pages/Dashboard'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -19,6 +21,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/search" element={<SearchBooks />} />
           <Route path='/login' element={<LoginFormulario />} />
           <Route path="/update/:id" element={<UpdateBook />} />
+          <Route path='/home' element={<Home />} />
+          <Route path="/teste" element={<TestePage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          
         </Route>
       </Routes>
     </BrowserRouter>

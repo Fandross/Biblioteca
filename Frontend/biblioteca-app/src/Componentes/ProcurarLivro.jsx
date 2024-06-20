@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LivroCard from './LivroCard';
 import Footer from './Footer';
@@ -8,8 +8,14 @@ const SearchBooks = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const apiUrl = 'http://localhost:5186/api'; // URL base da API
+  const apiUrl = 'http://localhost:5186/api';
+
+  useEffect(() => {
+    const adminStatus = localStorage.getItem('isAdmin') === 'true';
+    setIsAdmin(adminStatus);
+  }, []);
 
   const handleSearch = async () => {
     if (!query) {
@@ -20,30 +26,21 @@ const SearchBooks = () => {
     try {
       setLoading(true);
       setError(null);
-      setResults([]); // Limpa os resultados anteriores
+      setResults([]);
 
-      console.log(`Searching for books with title: ${query}`);
       const response = await axios.get(`${apiUrl}/livros/bytitle/${query}`);
 
       if (response.status === 200) {
-        console.log('Response data:', response.data);
         setResults(response.data);
       } else {
-        console.warn(`Unexpected response status: ${response.status}`);
         setError('Erro inesperado ao buscar livros');
       }
     } catch (error) {
       if (error.response) {
-        // O servidor respondeu com um código de status fora do intervalo 2xx
-        console.error('Error response:', error.response);
         setError(`Erro ao buscar livros: ${error.response.data}`);
       } else if (error.request) {
-        // A solicitação foi feita, mas nenhuma resposta foi recebida
-        console.error('Error request:', error.request);
         setError('Nenhuma resposta do servidor');
       } else {
-        // Algo aconteceu ao configurar a solicitação
-        console.error('Error', error.message);
         setError(`Erro ao buscar livros: ${error.message}`);
       }
     } finally {
@@ -51,8 +48,23 @@ const SearchBooks = () => {
     }
   };
 
-  const handleUpdateClick = (id) => {
-    window.location.href = `/update/${id}`;
+  const handleDeleteClick = async (bookId) => {
+    try {
+      const response = await axios.delete(`${apiUrl}/livros/${bookId}`);
+      if (response.status === 204) {
+        console.log(`Livro com ID ${bookId} deletado com sucesso`);
+        // Remove o livro da lista de resultados
+        setResults(results.filter(book => book.id !== bookId));
+      } else {
+        console.warn(`Unexpected response status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Erro ao deletar livro:', error);
+    }
+  };
+
+  const handleUpdateClick = (bookId) => {
+    window.location.href = `/update/${bookId}`;
   };
 
   return (
@@ -72,13 +84,19 @@ const SearchBooks = () => {
       </div>
       {loading && <p>Carregando...</p>}
       {error && <p>{error}</p>}
-      <div className="grid grid-cols-1 min-w[60%] sm:grid-cols-2 md:grid-cols-3 flex-grow lg:grid-cols-4 gap-4 pb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
         {Array.isArray(results) && results.length === 0 && !loading && <p>Nenhum livro encontrado.</p>}
         {Array.isArray(results) && results.map((book) => (
-          <LivroCard key={book.id} book={book} />
+          <LivroCard
+            key={book.id}
+            book={book}
+            isAdmin={isAdmin}
+            onDeleteClick={handleDeleteClick}
+            onUpdateClick={handleUpdateClick}
+          />
         ))}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

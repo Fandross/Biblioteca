@@ -10,5 +10,6 @@ namespace Core.Interfaces
         Task<Estudante> CreateEstudanteAsync(Estudante estudante);
         Task<Estudante> GetEstudanteByIdAsync(int id);
         Task AlugarLivroAsync(int estudanteId, int livroId);
+        Task<Estudante> AuthenticateAsync(string matricula, string senha);
     }
 }

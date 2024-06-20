@@ -19,7 +19,8 @@
     CREATE TABLE Estudantes (
         Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         Nome VARCHAR(100) NOT NULL,
-        Matricula VARCHAR(50) NOT NULL
+        Matricula VARCHAR(50) NOT NULL,
+        Senha VARCHAR(255) NOT NULL
     );
 
   - Tabela Livros:
@@ -41,6 +42,15 @@
         FOREIGN KEY (EstudanteId) REFERENCES Estudantes(Id),
         FOREIGN KEY (LivroId) REFERENCES Livros(Id)
     );
+  
+  - Tabela Administrador:
+    CREATE TABLE Administrador (
+      Id INT AUTO_INCREMENT PRIMARY KEY,
+      Nome VARCHAR(255) NOT NULL,
+      Matricula VARCHAR(255) NOT NULL,
+      Senha VARCHAR(255) NOT NULL
+  );
+
 
 3) Preencher a tabela com exemplos de teste:
   - Inserindo 10 exemplos de livros na tabela Livros
