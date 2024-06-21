@@ -17,6 +17,5 @@ public class EstudanteLivrosRepository : IEstudanteLivrosRepository
         await _context.SaveChangesAsync();
     }
 
-    // Implementação dos outros métodos...
 }
 

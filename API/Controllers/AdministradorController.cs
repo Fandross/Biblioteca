@@ -37,7 +37,7 @@ namespace API.Controllers{
             return Ok(admin);
         }
 
-        [HttpGet("/{name}")] // Alteração na rota para evitar conflito
+        [HttpGet("/{name}")] 
         public async Task<IActionResult> GetAdminByNameAsync(string name)
         {
             var admin = await _administradorService.GetAdminByName(name);

@@ -25,7 +25,6 @@ const LivroCard = ({ book, isAdmin, onDeleteClick, onUpdateClick }) => {
   const handleDelete = async () => {
     try {
       await onDeleteClick(book.id);
-      // Se precisar de alguma lógica após a exclusão, você pode adicionar aqui
     } catch (error) {
       console.error('Erro ao deletar livro:', error);
     }

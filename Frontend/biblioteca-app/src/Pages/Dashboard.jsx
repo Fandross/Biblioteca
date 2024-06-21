@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 function Dashboard() {
   const [decodedToken, setDecodedToken] = useState(null);
@@ -8,6 +8,12 @@ function Dashboard() {
   const [isAdmin, setIsAdmin] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [estudantes, setEstudantes] = useState([]);
+  const [newEstudante, setNewEstudante] = useState({
+    nome: '',
+    matricula: '',
+    senha: ''
+  });
 
   useEffect(() => {
     const isAdminToken = localStorage.getItem('isAdmin');
@@ -15,7 +21,12 @@ function Dashboard() {
     const jwtToken = localStorage.getItem('jwtToken');
     const decodedJwtToken = jwtDecode(jwtToken);
     setDecodedToken(decodedJwtToken);
-    fetchEstudante(decodedJwtToken.nameid);
+
+    if (isAdminToken === 'true') {
+      fetchEstudantes();
+    } else {
+      fetchEstudante(decodedJwtToken.nameid);
+    }
   }, []);
 
   const apiUrl = 'http://localhost:5186/api';
@@ -48,6 +59,33 @@ function Dashboard() {
     }
   };
 
+  const fetchEstudantes = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await axios.get(`${apiUrl}/estudantes`);
+      if (response.status === 200) {
+        setEstudantes(response.data);
+      } else {
+        console.warn(`Unexpected response status: ${response.status}`);
+        setError('Erro inesperado ao buscar estudantes');
+      }
+    } catch (error) {
+      if (error.response) {
+        console.error('Error response:', error.response);
+        setError(`Erro ao buscar estudantes: ${error.response.data}`);
+      } else if (error.request) {
+        console.error('Error request:', error.request);
+        setError('Nenhuma resposta do servidor ao buscar estudantes');
+      } else {
+        console.error('Error', error.message);
+        setError(`Erro ao buscar estudantes: ${error.message}`);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleDevolverClick = async (estudanteId, livroId) => {
     try {
       const response = await axios.delete(`${apiUrl}/Estudantes/${estudanteId}/devolver/${livroId}`);
@@ -62,6 +100,54 @@ function Dashboard() {
     } catch (error) {
       console.error('Erro ao tentar devolver o livro:', error);
       setError(`Erro ao tentar devolver o livro: ${error.message}`);
+    }
+  };
+
+  const handleCreateEstudante = async () => {
+    try {
+      const response = await axios.post(`${apiUrl}/estudantes`, newEstudante);
+      if (response.status === 201) {
+        console.log('Estudante criado com sucesso:', response.data);
+        fetchEstudantes();
+      } else {
+        console.warn(`Unexpected response status: ${response.status}`);
+        setError('Erro inesperado ao criar estudante');
+      }
+    } catch (error) {
+      console.error('Erro ao criar estudante:', error);
+      setError(`Erro ao criar estudante: ${error.message}`);
+    }
+  };
+
+  const handleDeleteEstudante = async (estudanteId) => {
+    try {
+      const response = await axios.delete(`${apiUrl}/estudantes/${estudanteId}`);
+      if (response.status === 204) {
+        console.log(`Estudante com ID ${estudanteId} deletado com sucesso`);
+        fetchEstudantes();
+      } else {
+        console.warn(`Unexpected response status: ${response.status}`);
+        setError('Erro inesperado ao deletar estudante');
+      }
+    } catch (error) {
+      console.error('Erro ao deletar estudante:', error);
+      setError(`Erro ao deletar estudante: ${error.message}`);
+    }
+  };
+
+  const handleUpdateEstudante = async (estudanteId, updatedData) => {
+    try {
+      const response = await axios.put(`${apiUrl}/estudantes/${estudanteId}`, updatedData);
+      if (response.status === 204) {
+        console.log(`Estudante com ID ${estudanteId} atualizado com sucesso`);
+        fetchEstudantes();
+      } else {
+        console.warn(`Unexpected response status: ${response.status}`);
+        setError('Erro inesperado ao atualizar estudante');
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar estudante:', error);
+      setError(`Erro ao atualizar estudante: ${error.message}`);
     }
   };
 
@@ -85,15 +171,61 @@ function Dashboard() {
 
   if (isAdmin === true) {
     return (
-      <div>
+      
+      <div className=''>
         <h1 className="text-2xl font-bold mb-4">Bem vindo(a), {decodedToken.unique_name}</h1>
-        <p>Em construção!</p>
+
+        <h2 className="text-xl font-bold mb-4">Cadastrar Novo Estudante</h2>
+        <div className="border p-4 rounded shadow-md mb-4">
+          <div className="mb-4">
+            <label className="block mb-2">Nome:</label>
+            <input
+              type="text"
+              value={newEstudante.nome}
+              onChange={(e) => setNewEstudante({ ...newEstudante, nome: e.target.value })}
+              className="border p-2 w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2">Matrícula:</label>
+            <input
+              type="text"
+              value={newEstudante.matricula}
+              onChange={(e) => setNewEstudante({ ...newEstudante, matricula: e.target.value })}
+              className="border p-2 w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2">Senha:</label>
+            <input
+              type="password"
+              value={newEstudante.senha}
+              onChange={(e) => setNewEstudante({ ...newEstudante, senha: e.target.value })}
+              className="border p-2 w-full"
+            />
+          </div>
+          <button onClick={handleCreateEstudante} className="bg-green-500 text-white px-4 py-2 rounded">
+            Cadastrar
+          </button>
+        </div>
+        <h2 className="text-xl font-bold mt-8 mb-4">Estudantes Cadastrados</h2>
         {loading && <p>Carregando...</p>}
+        {error && <p className="text-red-500">{error}</p>}
+        <div className="grid gap-4 mb-4 ">
+          {estudantes.map((estudante) => (
+            <div key={estudante.id} className="border p-4 rounded shadow-md">
+              <h3 className="text-lg font-bold">{estudante.nome}</h3>
+              <p className="mb-2">Matrícula: {estudante.matricula}</p>
+            </div>
+          ))}
+        </div>
+
+        
       </div>
     );
   }
 
-  return null; // Renderização inicial ou para outros casos não tratados
+  return null; 
 }
 
 const LivroCard = ({ livro, onDevolverClick }) => {

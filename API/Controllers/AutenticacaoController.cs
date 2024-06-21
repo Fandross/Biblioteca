@@ -40,7 +40,6 @@ namespace API.Controllers
             }
             else
             {
-                // Check if the user is a student
                 var estudante = await _estudanteService.AuthenticateAsync(request.Matricula, request.Senha);
                 if (estudante != null)
                 {

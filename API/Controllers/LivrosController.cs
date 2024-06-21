@@ -38,11 +38,11 @@ namespace API.Controllers
     return Ok(livro);
         }
 
-        [HttpGet("bytitle/{title}")] // Alteração na rota para evitar conflito
+        [HttpGet("bytitle/{title}")] 
         public async Task<IActionResult> GetByTitleAsync(string title)
         {
             var livros = await _livroService.GetByTitleAsync(title);
-            if (livros == null || !livros.Any()) // Verifica se a lista de livros está vazia
+            if (livros == null || !livros.Any()) 
             {
                 return NotFound();
             }

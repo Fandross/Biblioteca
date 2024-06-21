@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using API.Models;
-using Infrastructure.Data; // Certifique-se de adicionar esta linha para importar o contexto
+using Infrastructure.Data; 
 
 namespace API.Controllers
 {
@@ -21,13 +21,13 @@ namespace API.Controllers
     {
         private readonly IEstudanteService _estudanteService;
         private readonly IConfiguration _configuration;
-        private readonly AppDbContext _context; // Adicione esta linha
+        private readonly AppDbContext _context; 
 
         public EstudantesController(IEstudanteService estudanteService, IConfiguration configuration, AppDbContext context)
         {
             _estudanteService = estudanteService;
             _configuration = configuration;
-            _context = context; // Adicione esta linha
+            _context = context; 
         }
 
         [HttpGet]
@@ -114,7 +114,7 @@ namespace API.Controllers
 
             if (estudante == null)
             {
-                return Unauthorized(); // Credenciais inválidas
+                return Unauthorized(); 
             }
 
             // Gera token JWT

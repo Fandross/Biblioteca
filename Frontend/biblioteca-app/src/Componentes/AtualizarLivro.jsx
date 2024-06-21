@@ -3,11 +3,10 @@ import { useParams } from 'react-router-dom';
 import { getBookById, updateBook } from "../Services/livroServices";
 
 function UpdateLivro() {
-  const { id } = useParams(); // Obter o ID do livro da URL
+  const { id } = useParams(); 
   const [book, setBook] = useState({ titulo: '', autor: '', isbn: '', descricao: '', quantidade: '', genero: '' });
 
   useEffect(() => {
-    // Carregar as informações do livro pelo ID
     getBookById(id).then(data => setBook(data));
   }, [id]);
 
@@ -19,10 +18,7 @@ function UpdateLivro() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Atualizar o livro com as novas informações
       await updateBook(id, book);
-      // Redirecionar para a página inicial ou fazer outra ação após a atualização
-      // Exemplo: history.push('/');
     } catch (error) {
       console.error('Error updating book:', error);
     }

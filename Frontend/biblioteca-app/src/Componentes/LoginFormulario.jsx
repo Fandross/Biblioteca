@@ -4,7 +4,7 @@ import axios from 'axios';
 const LoginFormulario = () => {
   const [matricula, setMatricula] = useState('');
   const [senha, setSenha] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false); // Add state to check if user is admin
+  const [isAdmin, setIsAdmin] = useState(false); 
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {

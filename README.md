@@ -1,5 +1,5 @@
 # Biblioteca Sistema Distruibuido
- Trabalho de Sistema Distribuido
+ Trabalho de Sistema Distribuido Usando .NET, React, Tailwind, Javascript
 
 # Como usar:
 1)

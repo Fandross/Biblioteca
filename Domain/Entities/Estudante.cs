@@ -7,7 +7,7 @@ namespace Domain.Entities
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Matricula { get; set; }
-        public string Senha { get; set; } // Adicionado campo Senha
+        public string Senha { get; set; } 
         public List<EstudanteLivro> EstudanteLivros { get; set; } = new List<EstudanteLivro>();
     }
 }

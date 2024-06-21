@@ -9,7 +9,7 @@ import EstudanteDados from './Componentes/EstudanteDados';
 function App() {
   return (
     
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto  pl-4 pr-4">
         <Navbar/>
         {/* <LivroLista/> */}
         <Outlet />

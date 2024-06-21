@@ -70,7 +70,6 @@ namespace Core.Services
         {
             var estudante = await _context.Estudantes.FirstOrDefaultAsync(e => e.Matricula == matricula);
 
-            // Verifica se o estudante existe e se a senha está correta
             if (estudante == null || estudante.Senha != senha)
             {
                 throw new Exception("Usuario nao encontrando, ou senha errada!"); // Credenciais inválidas
