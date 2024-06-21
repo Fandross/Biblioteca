@@ -1,4 +1,4 @@
-# Biblioteca Sistema Distruibuido
+# Biblioteca Sistema Distribuido
  Trabalho de Sistema Distribuido Usando .NET, React, Tailwind, Javascript
 
 # Como usar:
